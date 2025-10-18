@@ -1,0 +1,20 @@
+{
+  "name": "url-parser",
+  "version": "1.0.0",
+  "type": "module",
+  "scripts": {
+    "build": "tsc",
+    "start": "pnpm run build && node dist/cli.js",
+    "dev": "tsx src/cli.ts"
+  },
+  "keywords": [],
+  "author": "Ante Rade",
+  "license": "ISC",
+  "devDependencies": {
+    "@types/node": "^24.8.1",
+    "dotenv": "^17.2.3",
+    "nodemon": "^3.1.10",
+    "tsx": "^4.20.6",
+    "typescript": "^5.9.3"
+  }
+}
