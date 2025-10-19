@@ -2,13 +2,15 @@
   "name": "url-parser",
   "version": "1.0.0",
   "type": "module",
+  "main": "dist/index.js",
   "scripts": {
     "build": "tsc",
-    "start": "pnpm run build && node dist/index.js",
-    "dev": "tsx index.ts",
+    "start": "pnpm run build && node dist/src/index.js",
+    "dev": "tsx src/index.ts",
     "test": "vitest run",
     "test:watch": "vitest watch",
-    "test:coverage": "vitest run --coverage "
+    "test:coverage": "vitest run --coverage",
+    "test:e2e": "vitest run cli.e2e"
   },
   "keywords": [],
   "author": "Ante Rade",

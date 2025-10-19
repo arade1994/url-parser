@@ -1,11 +1,11 @@
 import 'dotenv/config';
 import path from 'path';
 import { fileURLToPath } from 'url';
-import Runner from './src/runner/Runner';
-import FetchJobQueue from './src/job-queue/FetchJobQueue';
-import UrlParser from './src/parser/UrlParser';
-import UrlProcessor from './src/url-processor/UrlProcessor';
-import { logger } from './src/runner/logger';
+import Runner from './runner/Runner';
+import FetchJobQueue from './job-queue/FetchJobQueue';
+import UrlParser from './parser/UrlParser';
+import UrlProcessor from './url-processor/UrlProcessor';
+import { logger } from './runner/logger';
 
 export async function cli() {
   const secret = process.env.SECRET;
@@ -34,6 +34,6 @@ export async function cli() {
 }
 
 cli().catch((err) => {
-  logger.fatal(err.message);
+  process.stderr.write(`[FATAL] ${err.message}\n`);
   process.exit(1);
 });
