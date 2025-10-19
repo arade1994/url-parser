@@ -1,16 +1,25 @@
 {
   "name": "url-parser",
   "version": "1.0.0",
-  "type": "module",
-  "main": "dist/index.js",
+  "type": "commonjs",
+  "main": "dist/cjs/index.js",
+  "module": "dist/esm/index.js",
   "scripts": {
-    "build": "tsc",
-    "start": "pnpm run build && node dist/src/index.js",
+    "build:cjs": "tsc -p tsconfig.cjs.json",
+    "build:esm": "tsc -p tsconfig.esm.json",
+    "build": "pnpm run build:cjs && pnpm run build:esm",
     "dev": "tsx src/index.ts",
+    "start": "node dist/cjs/index.js",
     "test": "vitest run",
     "test:watch": "vitest watch",
     "test:coverage": "vitest run --coverage",
     "test:e2e": "vitest run cli.e2e"
+  },
+  "exports": {
+    ".": {
+      "require": "./dist/cjs/index.js",
+      "import": "./dist/esm/index.js"
+    }
   },
   "keywords": [],
   "author": "Ante Rade",

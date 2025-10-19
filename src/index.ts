@@ -1,6 +1,5 @@
 import 'dotenv/config';
 import path from 'path';
-import { fileURLToPath } from 'url';
 import Runner from './runner/Runner';
 import FetchJobQueue from './job-queue/FetchJobQueue';
 import UrlParser from './parser/UrlParser';
@@ -22,9 +21,7 @@ export async function cli() {
   const [, , relativePath] = process.argv;
 
   if (relativePath) {
-    const __filename = fileURLToPath(import.meta.url);
-    const __dirname = path.dirname(__filename);
-    const absolutePath = path.resolve(__dirname, relativePath);
+    const absolutePath = path.resolve(process.cwd(), relativePath);
     await runner.fromFile(absolutePath);
   } else {
     await runner.fromStdin();
