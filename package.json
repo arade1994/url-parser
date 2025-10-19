@@ -4,8 +4,8 @@
   "type": "module",
   "scripts": {
     "build": "tsc",
-    "start": "pnpm run build && node dist/cli.js",
-    "dev": "tsx src/cli.ts"
+    "start": "pnpm run build && node dist/index.js",
+    "dev": "tsx index.ts"
   },
   "keywords": [],
   "author": "Ante Rade",

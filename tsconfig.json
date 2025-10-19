@@ -40,8 +40,8 @@
     "skipLibCheck": true,
     "types": ["node"],
     "moduleResolution": "bundler",
-    "rootDir": "src",
+    "rootDir": "./src",
     "outDir": "dist"
   },
-  "include": ["src"]
+  "include": ["./src"]
 }
