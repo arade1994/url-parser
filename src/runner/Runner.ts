@@ -41,7 +41,7 @@ export default class Runner implements IRunner {
     const isInteractive = process.stdin.isTTY;
 
     if (isInteractive) {
-      logger.info('Enter text and press Enter to run:');
+      logger.info('Enter text (Ctrl+C to exit):');
     }
 
     return new Promise((resolve) => {
@@ -50,13 +50,11 @@ export default class Runner implements IRunner {
         if (!text) return;
         this.queue.handleChunk(text);
         await this.queue.handleProcessed();
-        logger.info('Done, exiting.');
         resolve();
       });
 
       process.stdin.on('end', async () => {
         await this.queue.handleProcessed();
-        logger.info('Done, exiting.');
         resolve();
       });
     });

@@ -139,9 +139,11 @@ export default class FetchJobQueue implements IFetchJobQueue {
   private async handleFailure(job: IJob, err: Error) {
     process.stderr.write(`[ERROR] ${job.url} -> ${err.message}\n`);
     if (job.attempt === 0) {
+      this.activeJobs++;
       setTimeout(() => {
         this.queue.push({ url: job.url, attempt: 1 });
         this.startJobProcessing();
+        this.activeJobs--;
       }, 60_000);
     }
   }
