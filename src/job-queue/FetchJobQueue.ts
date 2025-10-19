@@ -1,4 +1,6 @@
+import type { IUrlParser } from '../parser/types';
 import type UrlParser from '../parser/UrlParser';
+import type { IUrlProcessor } from '../url-processor/types';
 import type UrlProcessor from '../url-processor/UrlProcessor';
 import type { IFetchJobQueue, IJob } from './types';
 
@@ -33,8 +35,8 @@ export default class FetchJobQueue implements IFetchJobQueue {
   private stopped = false;
 
   constructor(
-    private readonly parser: UrlParser,
-    private readonly processor: UrlProcessor,
+    private readonly parser: IUrlParser,
+    private readonly processor: IUrlProcessor,
     /**
      * The rate limit for processing jobs
      */

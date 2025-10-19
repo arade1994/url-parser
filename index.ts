@@ -5,11 +5,12 @@ import Runner from './src/runner/Runner';
 import FetchJobQueue from './src/job-queue/FetchJobQueue';
 import UrlParser from './src/parser/UrlParser';
 import UrlProcessor from './src/url-processor/UrlProcessor';
+import { logger } from './src/runner/logger';
 
 export async function cli() {
   const secret = process.env.SECRET;
   if (!secret) {
-    process.stderr.write('SECRET is not set\n');
+    logger.fatal('SECRET is not set');
     process.exit(1);
   }
 
@@ -33,6 +34,6 @@ export async function cli() {
 }
 
 cli().catch((err) => {
-  process.stderr.write(`[FATAL] ${err.message}\n`);
+  logger.fatal(err.message);
   process.exit(1);
 });

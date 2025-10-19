@@ -1,9 +1,10 @@
 import fs from 'fs';
-import FetchJobQueue from '../job-queue/FetchJobQueue';
 import type { IRunner } from './types';
+import type { IFetchJobQueue } from '../job-queue/types';
+import { logger } from './logger';
 
 export default class Runner implements IRunner {
-  constructor(private readonly queue: FetchJobQueue) {}
+  constructor(private readonly queue: IFetchJobQueue) {}
 
   /**
    * Process URLs from a given file
@@ -15,13 +16,13 @@ export default class Runner implements IRunner {
   async fromFile(absolutePath: string): Promise<void> {
     const stream = fs.createReadStream(absolutePath, { encoding: 'utf8' });
 
-    stream.on('data', (chunk: string | Buffer<ArrayBufferLike>) => this.queue.handleChunk(chunk));
-    stream.on('error', (error: Error) => process.stderr.write(`[ERROR] Failed to read file: ${error.message}\n`));
+    stream.once('data', (chunk: string | Buffer<ArrayBufferLike>) => this.queue.handleChunk(chunk));
+    stream.once('error', (error: Error) => logger.error(`Failed to read file: ${error.message}`));
 
     return new Promise((resolve) => {
-      stream.on('end', async () => {
+      stream.once('end', async () => {
         await this.queue.handleProcessed();
-        process.stdout.write('✅ All done, exiting.\n');
+        logger.info('All done, exiting.');
         resolve();
       });
     });
@@ -40,7 +41,7 @@ export default class Runner implements IRunner {
     const isInteractive = process.stdin.isTTY;
 
     if (isInteractive) {
-      process.stdout.write('🟢 Enter text and press Enter to run:\n');
+      logger.info('Enter text and press Enter to run:');
     }
 
     return new Promise((resolve) => {
@@ -49,13 +50,13 @@ export default class Runner implements IRunner {
         if (!text) return;
         this.queue.handleChunk(text);
         await this.queue.handleProcessed();
-        process.stdout.write('✅ Done, exiting.\n');
+        logger.info('Done, exiting.');
         resolve();
       });
 
       process.stdin.on('end', async () => {
         await this.queue.handleProcessed();
-        process.stdout.write('✅ Done, exiting.\n');
+        logger.info('Done, exiting.');
         resolve();
       });
     });
