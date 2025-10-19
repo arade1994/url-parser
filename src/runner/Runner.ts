@@ -22,7 +22,6 @@ export default class Runner implements IRunner {
     return new Promise((resolve) => {
       stream.once('end', async () => {
         await this.queue.handleProcessed();
-        logger.info('All done, exiting.');
         resolve();
       });
     });
