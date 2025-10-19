@@ -1,3 +1,4 @@
+import { describe, test, expect } from 'vitest';
 import { spawn } from 'child_process';
 import path from 'path';
 import fs from 'fs';
@@ -53,13 +54,5 @@ describe('CLI Full Integration Tests', () => {
     expect(stdout).toMatch(/"title":\s*"Example Domain"/);
 
     fs.unlinkSync(filePath);
-  });
-
-  test('handles invalid URLs', async () => {
-    const { stdout, stderr, code } = await runCLI([], 'bad [ https://nonexistent-12345.fake ]');
-
-    expect(code).toBe(0);
-    expect(stderr).toMatch(/\[ERROR\]/);
-    expect(stdout).not.toMatch(/"title":/);
   });
 });

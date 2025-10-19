@@ -1,3 +1,4 @@
+import { describe, afterEach, test, vi, expect } from 'vitest';
 import Runner from '../Runner';
 
 class MockQueue {

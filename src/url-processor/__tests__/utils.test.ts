@@ -1,3 +1,4 @@
+import { describe, test, expect } from 'vitest';
 import { formatUrl, extractUrlTitleAndEmail, hashEmail, fetchUrlBody } from '../utils';
 
 describe('formatUrl()', () => {

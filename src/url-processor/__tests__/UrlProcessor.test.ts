@@ -1,3 +1,4 @@
+import { describe, beforeEach, test, vi, expect } from 'vitest';
 import UrlProcessor from '../UrlProcessor';
 
 describe('UrlProcessor', () => {

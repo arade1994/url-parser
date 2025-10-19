@@ -1,3 +1,4 @@
+import { describe, test, vi, expect } from 'vitest';
 import FetchJobQueue from '../FetchJobQueue';
 
 class MockParser {
